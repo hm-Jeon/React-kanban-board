@@ -1,33 +1,11 @@
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
-import styled from "styled-components";
+
 import { toDoOrderState, toDoState } from "./atoms";
 import Board from "./components/Board";
 import AddBoardForm from "./components/AddBoardForm";
 import RecycleBin from "./components/RecycleBin";
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  padding: 1rem 2rem;
-`;
-
-const Boards = styled.div`
-  position: relative;
-  display: flex;
-  width: fit-content;
-  max-height: 70%;
-  max-width: 100%;
-  overflow-x: scroll;
-  overflow-y: scroll;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
+import { Boards, Wrapper } from "./App.styled";
 
 function App() {
   const [toDos, setToDos] = useRecoilState(toDoState);

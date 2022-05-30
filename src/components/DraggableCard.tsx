@@ -1,24 +1,11 @@
 import { memo } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import styled from "styled-components";
-
-const Card = styled.div<ICardProps>`
-  padding: 1em;
-  background-color: ${props =>
-    props.isDragging ? "#364954" : props.theme.cardColor};
-  margin: 0.4em 0;
-  border-radius: 0.2em;
-  opacity: ${props => (props.isDragging ? 0.5 : 1)};
-`;
+import { Card } from "./DraggableCard.styled";
 
 interface IDraggableCardProps {
   toDoId: number;
   toDoText: string;
   index: number;
-}
-
-interface ICardProps {
-  isDragging: boolean;
 }
 
 function DraggableCard({ toDoId, toDoText, index }: IDraggableCardProps) {

@@ -1,27 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import { toDoOrderState, toDoState } from "../atoms";
-
-const Form = styled.form`
-  position: absolute;
-  top: 1em;
-  width: 17em;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 0.5em;
-  font-family: inherit;
-  font-size: 1em;
-  line-height: 1.2em;
-  border: 0;
-  border-radius: 0.2em;
-  color: inherit;
-  background-color: ${props => props.theme.inputColor};
-  text-align: center;
-  outline: 0;
-`;
+import { ErrorMsg, Form, Input } from "./AddBoardForm.styled";
 
 interface IForm {
   boardName: string;
@@ -30,7 +10,10 @@ interface IForm {
 function AddBoardForm() {
   const setToDos = useSetRecoilState(toDoState);
   const [toDosOrder, setToDosOrder] = useRecoilState(toDoOrderState);
-  const { register, handleSubmit, setValue } = useForm<IForm>();
+  const { register, handleSubmit, setValue, setError, formState } =
+    useForm<IForm>();
+
+  console.log(formState.errors);
 
   const onValid = ({ boardName }: IForm) => {
     setValue("boardName", "");
@@ -42,16 +25,25 @@ function AddBoardForm() {
         return [...currentOrder, boardName];
       });
     } else {
-      alert("동일한 이름의 Board가 있습니다.");
+      setError("boardName", { message: "Board 이름 중복" });
     }
   };
 
   return (
     <Form onSubmit={handleSubmit(onValid)}>
       <Input
-        {...register("boardName", { required: true })}
+        {...register("boardName", {
+          required: true,
+          maxLength: {
+            value: 10,
+            message: "Board 이름은 최대 10자까지 가능합니다.",
+          },
+        })}
         placeholder="Add Board"
       ></Input>
+      {formState.errors.boardName ? (
+        <ErrorMsg>{formState.errors.boardName?.message}</ErrorMsg>
+      ) : null}
     </Form>
   );
 }
