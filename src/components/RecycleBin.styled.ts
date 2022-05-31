@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Area = styled.div<IArea>`
-  /* position: absolute;
-  bottom: 1em; */
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +14,7 @@ export const Area = styled.div<IArea>`
 `;
 
 export const Icon = styled.i`
-  position: fixed;
+  position: absolute;
   font-size: 1.2em;
   color: ${props => props.theme.textColor};
 `;
