@@ -1,6 +1,5 @@
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
-
 import { toDoOrderState, toDoState } from "./atoms";
 import Board from "./components/Board";
 import AddBoardForm from "./components/AddBoardForm";
